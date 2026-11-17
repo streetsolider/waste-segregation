@@ -176,9 +176,11 @@ def line(r):
 
 def multi(tn, ext):
     lrs = json.loads((V2.OUT / "tune.json").read_text())["best_lr"]
-    rows = []
+    rows = json.loads((OUT / "multi.json").read_text()) if (OUT / "multi.json").exists() else []
     for name in C.MODELS:
         for seed in SEEDS:
+            if any(q["model"] == name and q["seed"] == seed for q in rows):
+                continue                     # finished before an interruption
             r = run(name, lrs[name], seed, list(ext), tn, ext, save=OUT / name / "multi" / f"seed{seed}")
             rows.append(r)
             print("multi", line(r), flush=True)
@@ -187,9 +189,11 @@ def multi(tn, ext):
 
 def lodo(tn, ext):
     lrs = json.loads((V2.OUT / "tune.json").read_text())["best_lr"]
-    rows = []
+    rows = json.loads((OUT / "lodo.json").read_text()) if (OUT / "lodo.json").exists() else []
     for held in [h for h in HELD_OUT if h in ext]:
         for name in C.MODELS:
+            if any(q["model"] == name and q["held_out"] == held for q in rows):
+                continue
             r = run(name, lrs[name], 42, [s for s in ext if s != held], tn, ext, held_out=held)
             rows.append(r)
             print("lodo", line(r), flush=True)

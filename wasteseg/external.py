@@ -66,7 +66,9 @@ def _garbage_v2():
 
 def _trashbox():
     m = {"cardboard": "cardboard", "glass": "glass", "metal": "metal", "paper": "paper", "plastic": "plastic"}
-    return _by_folder(EXT / "trashbox", m)        # left out: e-waste, medical
+    m.update({"cigarette butt": "trash", "tetra pak": None})   # left out: e-waste, medical, tetra pak (composite)
+    items = _by_folder(EXT / "trashbox" / "TrashBox_train_dataset_subfolders", m)
+    return [i for i in items if i[1]]
 
 
 def _recycling_hf():

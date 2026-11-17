@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waste classifier demo</title>
+<style>
+  :root { --bg:#f6f7f5; --card:#fff; --ink:#1c2420; --muted:#5d6b64; --line:#dfe4e0; --old:#b4573a; --new:#1f7a55; --bar:#e9eeea; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#131816; --card:#1c2320; --ink:#e8eeea; --muted:#9aa8a1; --line:#2c3632; --old:#e08a6c; --new:#5fc79a; --bar:#27302c; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; }
+  .pick { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+  label.btn { background:var(--new); color:#fff; padding:12px 18px; border-radius:10px; font-weight:600; cursor:pointer; }
+  label.btn.alt { background:transparent; color:var(--ink); border:1px solid var(--line); }
+  input[type=file] { display:none; }
+  #preview { display:none; width:100%; max-height:340px; object-fit:contain; background:var(--card); border:1px solid var(--line); border-radius:12px; margin-bottom:18px; }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .card h2 { font-size:1rem; margin:0; }
+  .card small { color:var(--muted); display:block; margin-bottom:10px; }
+  .top { font-size:1.6rem; font-weight:700; margin: 4px 0 12px; text-transform:capitalize; }
+  .old .top { color:var(--old); } .new .top { color:var(--new); }
+  .row { display:grid; grid-template-columns: 84px 1fr 48px; align-items:center; gap:8px; font-size:.9rem; margin:5px 0; }
+  .row span:first-child { text-transform:capitalize; }
+  .track { background:var(--bar); border-radius:6px; height:10px; overflow:hidden; }
+  .fill { height:100%; border-radius:6px; }
+  .old .fill { background:var(--old); } .new .fill { background:var(--new); }
+  .row span:last-child { text-align:right; font-variant-numeric: tabular-nums; color:var(--muted); }
+  #status { color:var(--muted); min-height:1.4em; margin-bottom:10px; }
+  footer { color:var(--muted); font-size:.85rem; margin-top:22px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Waste classifier demo</h1>
+  <p class="sub">Photograph one waste item. Two versions of the same network (EfficientNet-B0) classify it into cardboard, glass, metal, paper, plastic or trash.</p>
+  <div class="pick">
+    <label class="btn">Take a photo<input type="file" accept="image/*" capture="environment" id="cam"></label>
+    <label class="btn alt">Choose an image<input type="file" accept="image/*" id="file"></label>
+  </div>
+  <div id="status"></div>
+  <img id="preview" alt="Selected image">
+  <div class="grid" id="results" hidden>
+    <div class="card old"><h2>Trained on TrashNet only</h2><small>2,524 studio-style photos on a plain background</small><div class="top" id="t-old"></div><div id="b-old"></div></div>
+    <div class="card new"><h2>Trained on six datasets</h2><small>adds landfill, conveyor, street-litter and household photos</small><div class="top" id="t-new"></div><div id="b-new"></div></div>
+  </div>
+  <footer>Research prototype. The middle square of the photo is what the models see. Photos are classified in memory and are not stored.</footer>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+function bars(el, topEl, probs) {
+  const rows = Object.entries(probs).sort((a, b) => b[1] - a[1]);
+  topEl.textContent = rows[0][0] + " " + Math.round(rows[0][1] * 100) + "%";
+  el.replaceChildren(...rows.map(([c, p]) => {
+    const r = document.createElement("div"); r.className = "row";
+    const n = document.createElement("span"); n.textContent = c;
+    const t = document.createElement("div"); t.className = "track";
+    const f = document.createElement("div"); f.className = "fill"; f.style.width = (p * 100).toFixed(1) + "%"; t.append(f);
+    const v = document.createElement("span"); v.textContent = (p * 100).toFixed(1) + "%";
+    r.append(n, t, v); return r;
+  }));
+}
+async function shrink(file) {              // phone photos are large; send a small JPEG instead
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const k = Math.min(1, 1024 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas"); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+    c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+    return await new Promise(res => c.toBlob(res, "image/jpeg", 0.9));
+  } catch (e) { return file; }
+}
+async function go(file) {
+  if (!file) return;
+  $("preview").src = URL.createObjectURL(file); $("preview").style.display = "block";
+  $("status").textContent = "Classifying...";
+  try {
+    const r = await fetch("/predict", { method: "POST", body: await shrink(file) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || "failed");
+    bars($("b-old"), $("t-old"), j.trashnet_only); bars($("b-new"), $("t-new"), j.all_datasets);
+    $("results").hidden = false; $("status").textContent = "";
+  } catch (e) { $("status").textContent = "Sorry, that did not work: " + e.message; }
+}
+$("cam").onchange = e => go(e.target.files[0]);
+$("file").onchange = e => go(e.target.files[0]);
+</script>
+</body>
+</html>
