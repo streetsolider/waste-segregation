@@ -22,3 +22,21 @@ All settings (seed, split, epochs, learning rates) are in `wasteseg/config.py`.
 2. Download `dataset-resized.zip` from https://github.com/garythung/trashnet (folder `data/`) and unzip it
    to `data/raw/` so that `data/raw/dataset-resized/<class>/*.jpg` exists.
 3. Run steps 1, 4, 5, 6, 7, 9 in order.
+
+## Final experiments (the ones reported in the paper)
+
+| Step | Command | Output |
+|---|---|---|
+| Clean and split TrashNet | `python -m wasteseg.data` | `data/splits.json`, `data/cleaning_report.json` |
+| Collect, map and clean the other datasets | `python -m wasteseg.external` | `data/external_cache/`, `data/external_report.json` |
+| Learning-rate search and benchmark training (3 seeds) | `python -m wasteseg.train_v2 tune` then `final` | `runs_v2/` |
+| Transfer, multi-source, leave-one-out, unseen test | `python -m wasteseg.train_v3 transfer multi lodo unseen` | `runs_v3/` |
+| Quantisation, pruning, latency | `python -m wasteseg.optimise_v3` | `runs_v3/optimise.json` |
+| Grad-CAM | `python -m wasteseg.explain_v3` | `runs_v3/gradcam.json`, `figures/gradcam_v3.png` |
+| Result figures | `python -m wasteseg.make_figures_v3` | `figures/fig7_robustness.png`, `figures/fig8_generalisation.png` |
+| Print every results table | `python tools\summarise_v3.py` | console |
+
+The external datasets are downloaded into `data/external/` (see `wasteseg/external.py` for the folder names).
+`train_v3` needs about 17 GB of RAM, so run it on its own. `train.py`, `evaluate.py`, `optimise.py`, `gradcam.py`
+and `make_figures.py` are the first-round versions and are no longer used by the paper, except that
+`make_figures.py` draws Figure 6.

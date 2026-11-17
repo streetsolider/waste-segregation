@@ -67,12 +67,15 @@ def main(name="resnet50"):
             panels.append((ds, x[top["i"]], top))
         print(ds, {k: v for k, v in summary[ds].items()}, flush=True)
 
-    fig, axes = plt.subplots(2, len(panels), figsize=(1.15 * len(panels), 2.6))
+    cols = 3                                   # two bands of three sets: photo above, heat map below
+    bands = -(-len(panels) // cols)
+    fig, axes = plt.subplots(2 * bands, cols, figsize=(3.4, 2.5 * bands))
     for k, (ds, im, e) in enumerate(panels):
-        axes[0, k].imshow(im)
-        axes[0, k].set_title(f"{LABELS[ds]}\ntrue: {C.CLASSES[e['true']]}", fontsize=5.5, pad=2)
-        axes[1, k].imshow(im); axes[1, k].imshow(e["_cam"], cmap="jet", alpha=0.45)
-        axes[1, k].set_title(f"pred: {C.CLASSES[e['pred']]} ({e['confidence']:.2f})", fontsize=5.5, pad=2)
+        top, bot = axes[2 * (k // cols), k % cols], axes[2 * (k // cols) + 1, k % cols]
+        top.imshow(im)
+        top.set_title(f"{LABELS[ds]}\ntrue: {C.CLASSES[e['true']]}", fontsize=7, pad=2)
+        bot.imshow(im); bot.imshow(e["_cam"], cmap="jet", alpha=0.45)
+        bot.set_title(f"pred: {C.CLASSES[e['pred']]} ({e['confidence']:.2f})", fontsize=7, pad=2)
     for a in axes.ravel():
         a.axis("off")
     fig.tight_layout(pad=0.4)
