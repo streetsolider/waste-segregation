@@ -9,6 +9,8 @@ figures/iterations/
 *.aux
 *.log
 !runs/train.log
+data/external/
+data/external_cache/
 
 # local notes and paper build files
 PROGRESS.md

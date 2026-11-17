@@ -1,0 +1,233 @@
+{
+ "realwaste": {
+  "dataset": "realwaste",
+  "setting": "landfill, real waste stream",
+  "mapped_files": 3587,
+  "source_classes": {
+   "cardboard": 461,
+   "glass": 420,
+   "metal": 790,
+   "miscellaneous trash": 495,
+   "paper": 500,
+   "plastic": 921
+  },
+  "removed": {
+   "near_duplicate": 0,
+   "copy_of_trashnet": 0
+  },
+  "copies_of_trashnet_test": 0,
+  "kept": 3587,
+  "kept_per_class": {
+   "cardboard": 461,
+   "glass": 420,
+   "metal": 790,
+   "paper": 500,
+   "plastic": 921,
+   "trash": 495
+  },
+  "split_counts": {
+   "train": 2511,
+   "test": 539,
+   "val": 537
+  }
+ },
+ "garbage_v2": {
+  "dataset": "garbage_v2",
+  "setting": "household items, mostly plain background",
+  "mapped_files": 7463,
+  "source_classes": {
+   "cardboard": 1411,
+   "glass": 1736,
+   "metal": 930,
+   "paper": 1336,
+   "plastic": 1597,
+   "trash": 453
+  },
+  "removed": {
+   "too_small": 54,
+   "near_duplicate": 4,
+   "copy_of_trashnet": 2218
+  },
+  "copies_of_trashnet_test": 334,
+  "kept": 5187,
+  "kept_per_class": {
+   "cardboard": 1022,
+   "glass": 1340,
+   "metal": 527,
+   "paper": 759,
+   "plastic": 1138,
+   "trash": 401
+  },
+  "split_counts": {
+   "val": 778,
+   "train": 3631,
+   "test": 778
+  }
+ },
+ "recycling_hf": {
+  "dataset": "recycling_hf",
+  "setting": "household recycling photos",
+  "mapped_files": 1655,
+  "source_classes": {
+   "aluminium": 269,
+   "cardboard": 274,
+   "glass": 294,
+   "hard plastic": 280,
+   "paper": 255,
+   "soft plastics": 283
+  },
+  "removed": {
+   "exact_duplicate": 61,
+   "near_duplicate": 17,
+   "copy_of_trashnet": 0
+  },
+  "copies_of_trashnet_test": 0,
+  "kept": 1577,
+  "kept_per_class": {
+   "cardboard": 261,
+   "glass": 286,
+   "metal": 262,
+   "paper": 242,
+   "plastic": 526,
+   "trash": 0
+  },
+  "split_counts": {
+   "test": 238,
+   "val": 236,
+   "train": 1103
+  }
+ },
+ "warp": {
+  "dataset": "warp",
+  "setting": "recycling-plant conveyor",
+  "mapped_files": 9479,
+  "source_classes": {
+   "bottle-blue": 738,
+   "bottle-blue-full": 328,
+   "bottle-blue5l": 485,
+   "bottle-blue5l-full": 113,
+   "bottle-dark": 628,
+   "bottle-dark-full": 219,
+   "bottle-green": 540,
+   "bottle-green-full": 272,
+   "bottle-milk": 404,
+   "bottle-milk-full": 131,
+   "bottle-multicolor": 155,
+   "bottle-multicolorv-full": 128,
+   "bottle-oil": 324,
+   "bottle-oil-full": 32,
+   "bottle-transp": 1666,
+   "bottle-transp-full": 620,
+   "bottle-yogurt": 319,
+   "glass-dark": 161,
+   "glass-green": 160,
+   "glass-transp": 213,
+   "canister": 179,
+   "cans": 660,
+   "detergent-color": 339,
+   "detergent-transparent": 303,
+   "detergent-white": 362
+  },
+  "removed": {
+   "too_small": 5031,
+   "exact_duplicate": 18,
+   "near_duplicate": 0,
+   "copy_of_trashnet": 0
+  },
+  "copies_of_trashnet_test": 0,
+  "kept": 4430,
+  "kept_per_class": {
+   "cardboard": 0,
+   "glass": 354,
+   "metal": 210,
+   "paper": 0,
+   "plastic": 3866,
+   "trash": 0
+  },
+  "split_counts": {
+   "test": 778,
+   "train": 3115,
+   "val": 537
+  }
+ },
+ "taco": {
+  "dataset": "taco",
+  "setting": "litter in the wild (cropped objects)",
+  "mapped_files": 2638,
+  "source_classes": {
+   "glass bottle": 88,
+   "other carton": 80,
+   "clear plastic bottle": 224,
+   "drink can": 190,
+   "food can": 33,
+   "other plastic bottle": 48,
+   "plastic bottle cap": 83,
+   "pop tab": 18,
+   "aerosol": 8,
+   "glass cup": 6,
+   "styrofoam piece": 84,
+   "plastic film": 379,
+   "other plastic": 126,
+   "metal bottle cap": 39,
+   "disposable food container": 36,
+   "normal paper": 65,
+   "other plastic wrapper": 189,
+   "single-use carrier bag": 56,
+   "tissues": 32,
+   "plastic lid": 62,
+   "metal lid": 9,
+   "egg carton": 10,
+   "plastic straw": 92,
+   "paper cup": 57,
+   "paper bag": 26,
+   "disposable plastic cup": 89,
+   "plastic utensils": 28,
+   "glass jar": 6,
+   "food waste": 5,
+   "squeezable tube": 7,
+   "spread tub": 8,
+   "shoe": 6,
+   "garbage bag": 29,
+   "six pack rings": 5,
+   "foam cup": 11,
+   "paper straw": 4,
+   "corrugated carton": 61,
+   "toilet tube": 4,
+   "rope & strings": 23,
+   "unlabeled litter": 141,
+   "aluminium foil": 47,
+   "cigarette": 34,
+   "other plastic container": 4,
+   "polypropylene bag": 3,
+   "magazine paper": 9,
+   "broken glass": 22,
+   "pizza box": 3,
+   "scrap metal": 14,
+   "plastic glooves": 4,
+   "wrapping paper": 12,
+   "foam food container": 13,
+   "tupperware": 4,
+   "other plastic cup": 2
+  },
+  "removed": {
+   "too_small": 2,
+   "near_duplicate": 0,
+   "copy_of_trashnet": 0
+  },
+  "copies_of_trashnet_test": 0,
+  "kept": 2636,
+  "kept_per_class": {
+   "cardboard": 158,
+   "glass": 122,
+   "metal": 358,
+   "paper": 205,
+   "plastic": 1476,
+   "trash": 317
+  },
+  "split_counts": {
+   "val": 396,
+   "train": 1846,
+   "test": 394
+  }
+ }
+}
