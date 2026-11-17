@@ -1,0 +1,167 @@
+{
+ "model": "resnet50",
+ "sets": {
+  "trashnet": {
+   "n": 379,
+   "errors": 26,
+   "accuracy": 0.9313984168865436,
+   "error_confidence": 0.5760570959402964,
+   "correct_confidence": 0.8403446471691132,
+   "error_centre_mass": 0.433610325679183,
+   "correct_centre_mass": 0.4218530341982841,
+   "top_confusions": [
+    [
+     "glass -> plastic",
+     4
+    ],
+    [
+     "paper -> cardboard",
+     4
+    ],
+    [
+     "cardboard -> paper",
+     3
+    ],
+    [
+     "plastic -> trash",
+     3
+    ]
+   ]
+  },
+  "realwaste": {
+   "n": 539,
+   "errors": 35,
+   "accuracy": 0.935064935064935,
+   "error_confidence": 0.630562801020486,
+   "correct_confidence": 0.8366716978947322,
+   "error_centre_mass": 0.6523435873644693,
+   "correct_centre_mass": 0.5177074076732,
+   "top_confusions": [
+    [
+     "plastic -> glass",
+     5
+    ],
+    [
+     "plastic -> metal",
+     5
+    ],
+    [
+     "metal -> trash",
+     4
+    ],
+    [
+     "plastic -> trash",
+     4
+    ]
+   ]
+  },
+  "garbage_v2": {
+   "n": 778,
+   "errors": 51,
+   "accuracy": 0.9344473007712082,
+   "error_confidence": 0.6006549123455497,
+   "correct_confidence": 0.8514583762486776,
+   "error_centre_mass": 0.41873359534085963,
+   "correct_centre_mass": 0.4277637120336294,
+   "top_confusions": [
+    [
+     "paper -> cardboard",
+     6
+    ],
+    [
+     "plastic -> glass",
+     6
+    ],
+    [
+     "cardboard -> paper",
+     5
+    ],
+    [
+     "glass -> plastic",
+     5
+    ]
+   ]
+  },
+  "recycling_hf": {
+   "n": 238,
+   "errors": 51,
+   "accuracy": 0.7857142857142857,
+   "error_confidence": 0.5663995140907812,
+   "correct_confidence": 0.7859500900904337,
+   "error_centre_mass": 0.41672246727873297,
+   "correct_centre_mass": 0.4158464589715004,
+   "top_confusions": [
+    [
+     "plastic -> metal",
+     7
+    ],
+    [
+     "glass -> metal",
+     6
+    ],
+    [
+     "plastic -> cardboard",
+     5
+    ],
+    [
+     "cardboard -> paper",
+     4
+    ]
+   ]
+  },
+  "warp": {
+   "n": 778,
+   "errors": 36,
+   "accuracy": 0.9537275064267352,
+   "error_confidence": 0.5742438750134574,
+   "correct_confidence": 0.7411170047521591,
+   "error_centre_mass": 0.372754015856319,
+   "correct_centre_mass": 0.3567141372958819,
+   "top_confusions": [
+    [
+     "metal -> plastic",
+     14
+    ],
+    [
+     "glass -> plastic",
+     12
+    ],
+    [
+     "plastic -> glass",
+     6
+    ],
+    [
+     "plastic -> metal",
+     4
+    ]
+   ]
+  },
+  "taco": {
+   "n": 394,
+   "errors": 97,
+   "accuracy": 0.7538071065989848,
+   "error_confidence": 0.6163455404571652,
+   "correct_confidence": 0.731843510667483,
+   "error_centre_mass": 0.46477071203521847,
+   "correct_centre_mass": 0.48888363922635714,
+   "top_confusions": [
+    [
+     "plastic -> trash",
+     27
+    ],
+    [
+     "trash -> plastic",
+     12
+    ],
+    [
+     "paper -> plastic",
+     9
+    ],
+    [
+     "plastic -> paper",
+     8
+    ]
+   ]
+  }
+ }
+}

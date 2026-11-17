@@ -1,0 +1,246 @@
+{
+ "mobilenet_v3_small": {
+  "fp32": {
+   "size_mb": 5.82279109954834,
+   "trashnet": 0.8865435356200527,
+   "external": 0.8628529519618628,
+   "val": 0.8519362186788155,
+   "latency_ms_median": 1.3034000003244728,
+   "latency_ms_p95": 1.4098900224780662
+  },
+  "int8_settings": {
+   "minmax, all operators": {
+    "file": "int8_0.onnx",
+    "size_mb": 1.7857561111450195,
+    "val": 0.22209567198177677,
+    "latency_ms_median": 1.5742499963380396,
+    "latency_ms_p95": 1.6885449935216457
+   },
+   "percentile, all operators": {
+    "file": "int8_1.onnx",
+    "size_mb": 1.7857694625854492,
+    "val": 0.2517084282460137,
+    "latency_ms_median": 1.5681499789934605,
+    "latency_ms_p95": 1.6550999745959416
+   },
+   "minmax, convolution and linear only": {
+    "file": "int8_2.onnx",
+    "size_mb": 1.768815040588379,
+    "val": 0.18792710706150342,
+    "latency_ms_median": 1.8091999809257686,
+    "latency_ms_p95": 1.9415849965298546
+   },
+   "percentile, convolution and linear only": {
+    "file": "int8_3.onnx",
+    "size_mb": 1.7688302993774414,
+    "val": 0.23234624145785876,
+    "latency_ms_median": 1.8119000014849007,
+    "latency_ms_p95": 2.018044976284726
+   },
+   "entropy, all operators": {
+    "file": "int8_4.onnx",
+    "size_mb": 1.7857561111450195,
+    "val": 0.22209567198177677,
+    "latency_ms_median": 1.5608500107191503,
+    "latency_ms_p95": 1.6560500254854555
+   },
+   "percentile, depthwise convolutions left in float": {
+    "file": "int8_5.onnx",
+    "size_mb": 1.9175500869750977,
+    "val": 0.1674259681093394,
+    "latency_ms_median": 1.6712000069674104,
+    "latency_ms_p95": 1.799460023175925
+   },
+   "percentile, only ordinary convolutions and linear quantised": {
+    "file": "int8_6.onnx",
+    "size_mb": 1.8794965744018555,
+    "val": 0.23917995444191345,
+    "latency_ms_median": 1.6960999928414822,
+    "latency_ms_p95": 1.82159501418937
+   }
+  },
+  "depthwise_convolutions": 11,
+  "int8": {
+   "setting": "percentile, all operators",
+   "file": "int8_1.onnx",
+   "size_mb": 1.7857694625854492,
+   "val": 0.2517084282460137,
+   "latency_ms_median": 1.5681499789934605,
+   "latency_ms_p95": 1.6550999745959416,
+   "trashnet": 0.3245382585751979,
+   "external": 0.1521818848551522
+  },
+  "pruned": {
+   "0.3": {
+    "trashnet": 0.8047493403693932,
+    "external": 0.8331499816648331
+   },
+   "0.5": {
+    "trashnet": 0.46701846965699206,
+    "external": 0.5383204987165383
+   },
+   "0.7": {
+    "trashnet": 0.18997361477572558,
+    "external": 0.464979831316465
+   }
+  }
+ },
+ "efficientnet_b0": {
+  "fp32": {
+   "size_mb": 15.30736255645752,
+   "trashnet": 0.920844327176781,
+   "external": 0.885955262192886,
+   "val": 0.8804100227790432,
+   "latency_ms_median": 8.493650006130338,
+   "latency_ms_p95": 9.761734990752302
+  },
+  "int8_settings": {
+   "minmax, all operators": {
+    "file": "int8_0.onnx",
+    "size_mb": 4.666289329528809,
+    "val": 0.5945330296127562,
+    "latency_ms_median": 5.843449995154515,
+    "latency_ms_p95": 6.9660850014770395
+   },
+   "percentile, all operators": {
+    "file": "int8_1.onnx",
+    "size_mb": 4.666315078735352,
+    "val": 0.7665148063781321,
+    "latency_ms_median": 5.799400008982047,
+    "latency_ms_p95": 6.556360016111284
+   },
+   "minmax, convolution and linear only": {
+    "file": "int8_2.onnx",
+    "size_mb": 4.575953483581543,
+    "val": 0.6138952164009112,
+    "latency_ms_median": 8.30000001587905,
+    "latency_ms_p95": 8.775334994425066
+   },
+   "percentile, convolution and linear only": {
+    "file": "int8_3.onnx",
+    "size_mb": 4.575979232788086,
+    "val": 0.7665148063781321,
+    "latency_ms_median": 8.237049973104149,
+    "latency_ms_p95": 8.800379998865537
+   },
+   "entropy, all operators": {
+    "file": "int8_4.onnx",
+    "size_mb": 4.666289329528809,
+    "val": 0.5945330296127562,
+    "latency_ms_median": 5.856450006831437,
+    "latency_ms_p95": 6.512329986435361
+   },
+   "percentile, depthwise convolutions left in float": {
+    "file": "int8_5.onnx",
+    "size_mb": 5.067366600036621,
+    "val": 0.2460136674259681,
+    "latency_ms_median": 6.582300004083663,
+    "latency_ms_p95": 6.844210019335151
+   },
+   "percentile, only ordinary convolutions and linear quantised": {
+    "file": "int8_6.onnx",
+    "size_mb": 4.943296432495117,
+    "val": 0.8120728929384966,
+    "latency_ms_median": 7.438750006258488,
+    "latency_ms_p95": 8.0305300274631
+   }
+  },
+  "depthwise_convolutions": 16,
+  "int8": {
+   "setting": "percentile, only ordinary convolutions and linear quantised",
+   "file": "int8_6.onnx",
+   "size_mb": 4.943296432495117,
+   "val": 0.8120728929384966,
+   "latency_ms_median": 7.438750006258488,
+   "latency_ms_p95": 8.0305300274631,
+   "trashnet": 0.7889182058047494,
+   "external": 0.841950861752842
+  },
+  "pruned": {
+   "0.3": {
+    "trashnet": 0.9155672823218998,
+    "external": 0.8844884488448845
+   },
+   "0.5": {
+    "trashnet": 0.8759894459102903,
+    "external": 0.8632196552988632
+   },
+   "0.7": {
+    "trashnet": 0.19788918205804748,
+    "external": 0.46828016134946826
+   }
+  }
+ },
+ "resnet50": {
+  "fp32": {
+   "size_mb": 89.64495086669922,
+   "trashnet": 0.9313984168865436,
+   "external": 0.9013568023469014,
+   "val": 0.8906605922551253,
+   "latency_ms_median": 52.81170000671409,
+   "latency_ms_p95": 56.57291000825353
+  },
+  "int8_settings": {
+   "minmax, all operators": {
+    "file": "int8_0.onnx",
+    "size_mb": 22.914435386657715,
+    "val": 0.5854214123006833,
+    "latency_ms_median": 15.730049984995276,
+    "latency_ms_p95": 16.727520001586527
+   },
+   "percentile, all operators": {
+    "file": "int8_1.onnx",
+    "size_mb": 22.91443920135498,
+    "val": 0.8917995444191344,
+    "latency_ms_median": 15.77620004536584,
+    "latency_ms_p95": 16.348979983013123
+   },
+   "minmax, convolution and linear only": {
+    "file": "int8_2.onnx",
+    "size_mb": 22.939321517944336,
+    "val": 0.5831435079726651,
+    "latency_ms_median": 16.66339999064803,
+    "latency_ms_p95": 17.27734503801912
+   },
+   "percentile, convolution and linear only": {
+    "file": "int8_3.onnx",
+    "size_mb": 22.93933391571045,
+    "val": 0.8861047835990888,
+    "latency_ms_median": 16.72259997576475,
+    "latency_ms_p95": 17.747689998941496
+   },
+   "entropy, all operators": {
+    "file": "int8_4.onnx",
+    "size_mb": 22.914435386657715,
+    "val": 0.5854214123006833,
+    "latency_ms_median": 15.80055002705194,
+    "latency_ms_p95": 17.94732997077517
+   }
+  },
+  "depthwise_convolutions": 0,
+  "int8": {
+   "setting": "percentile, all operators",
+   "file": "int8_1.onnx",
+   "size_mb": 22.91443920135498,
+   "val": 0.8917995444191344,
+   "latency_ms_median": 15.77620004536584,
+   "latency_ms_p95": 16.348979983013123,
+   "trashnet": 0.9313984168865436,
+   "external": 0.900990099009901
+  },
+  "pruned": {
+   "0.3": {
+    "trashnet": 0.9313984168865436,
+    "external": 0.8987898789878987
+   },
+   "0.5": {
+    "trashnet": 0.9129287598944591,
+    "external": 0.8936560322698937
+   },
+   "0.7": {
+    "trashnet": 0.7730870712401056,
+    "external": 0.8016134946828016
+   }
+  }
+ }
+}
