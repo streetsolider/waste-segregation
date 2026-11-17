@@ -27,6 +27,8 @@ DEV = "cuda"
 BATCH = 64
 EPOCHS_HEAD, EPOCHS_FINE = 1, 14
 SEEDS = [42, 43, 44]
+TRAIN_SOURCES = ["realwaste", "garbage_v2", "recycling_hf", "warp", "taco"]
+UNSEEN = "trashbox"                           # never used for training: final test set only
 HELD_OUT = ["realwaste", "warp", "taco"]     # the three sets photographed in real conditions
 torch.backends.cudnn.benchmark = True
 
@@ -181,7 +183,7 @@ def multi(tn, ext):
         for seed in SEEDS:
             if any(q["model"] == name and q["seed"] == seed for q in rows):
                 continue                     # finished before an interruption
-            r = run(name, lrs[name], seed, list(ext), tn, ext, save=OUT / name / "multi" / f"seed{seed}")
+            r = run(name, lrs[name], seed, [s for s in TRAIN_SOURCES if s in ext], tn, ext, save=OUT / name / "multi" / f"seed{seed}")
             rows.append(r)
             print("multi", line(r), flush=True)
             (OUT / "multi.json").write_text(json.dumps(rows, indent=1))
@@ -194,14 +196,43 @@ def lodo(tn, ext):
         for name in C.MODELS:
             if any(q["model"] == name and q["held_out"] == held for q in rows):
                 continue
-            r = run(name, lrs[name], 42, [s for s in ext if s != held], tn, ext, held_out=held)
+            r = run(name, lrs[name], 42, [s for s in TRAIN_SOURCES if s in ext and s != held], tn, ext, held_out=held)
             rows.append(r)
             print("lodo", line(r), flush=True)
             (OUT / "lodo.json").write_text(json.dumps(rows, indent=1))
+
+
+def unseen(tn, ext):
+    """Final test on a set no model was trained on. Images that are near copies of any training image
+    (TrashNet copies were already removed by wasteseg.external) are dropped first."""
+    import imagehash
+    from PIL import Image
+
+    def ph(x):
+        return np.array([imagehash.phash(Image.fromarray(i.permute(1, 2, 0).numpy()), hash_size=16).hash.flatten()
+                         for i in x])
+    ux = torch.cat([ext[UNSEEN][s][0] for s in ("train", "val", "test")])
+    uy = np.concatenate([ext[UNSEEN][s][1] for s in ("train", "val", "test")])
+    seen = np.concatenate([ph(torch.cat([ext[s][k][0] for k in ("train", "val", "test")])) for s in TRAIN_SOURCES])
+    d, _ = E._min_dist(ph(ux), seen)
+    keep = d > E.CROSS_DUP
+    ux, uy = ux[torch.from_numpy(keep)], uy[keep]
+    out = {"dataset": UNSEEN, "n": int(len(uy)), "removed_copies_of_training_images": int((~keep).sum()),
+           "per_class": {c: int((uy == i).sum()) for i, c in enumerate(C.CLASSES)}, "rows": []}
+    print(f"unseen {UNSEEN}: {len(uy)} images, {int((~keep).sum())} copies of training images removed", flush=True)
+    todo = [(n, "trashnet_" + t, V2.OUT / n / t / f"seed{s}", s) for n in C.MODELS for t in ("plain", "robust")
+            for s in V2.SEEDS] + [(n, "multi", OUT / n / "multi" / f"seed{s}", s) for n in C.MODELS for s in SEEDS]
+    for name, kind, folder, seed in todo:
+        model = build(name, pretrained=False).to(DEV).to(memory_format=torch.channels_last)
+        model.load_state_dict(torch.load(folder / "best.pt"))
+        r = {"model": name, "training": kind, "seed": seed, **score(uy, predict_cpu(model, ux))}
+        out["rows"].append(r)
+        print(f"unseen {name} {kind} seed {seed} acc {r['acc']:.4f} balanced {r['balanced_acc']:.4f}", flush=True)
+    (OUT / "unseen.json").write_text(json.dumps(out, indent=1))
 
 
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     tn_data, ext_data = V2.load_data(), load_ext()
     for cmd in sys.argv[1:]:
-        {"transfer": transfer, "multi": multi, "lodo": lodo}[cmd](tn_data, ext_data)
+        {"transfer": transfer, "multi": multi, "lodo": lodo, "unseen": unseen}[cmd](tn_data, ext_data)

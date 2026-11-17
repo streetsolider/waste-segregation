@@ -64,6 +64,41 @@
    "test": 778
   }
  },
+ "trashbox": {
+  "dataset": "trashbox",
+  "setting": "web images",
+  "mapped_files": 9674,
+  "source_classes": {
+   "cardboard": 1931,
+   "glass": 2022,
+   "metal": 2068,
+   "paper": 1520,
+   "cigarette butt": 405,
+   "plastic": 1728
+  },
+  "removed": {
+   "too_small": 24,
+   "exact_duplicate": 230,
+   "unreadable": 2,
+   "near_duplicate": 56,
+   "copy_of_trashnet": 782
+  },
+  "copies_of_trashnet_test": 117,
+  "kept": 8580,
+  "kept_per_class": {
+   "cardboard": 1547,
+   "glass": 1838,
+   "metal": 2045,
+   "paper": 1051,
+   "plastic": 1694,
+   "trash": 405
+  },
+  "split_counts": {
+   "train": 6008,
+   "test": 1284,
+   "val": 1288
+  }
+ },
  "recycling_hf": {
   "dataset": "recycling_hf",
   "setting": "household recycling photos",
