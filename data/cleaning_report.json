@@ -1,0 +1,63 @@
+{
+ "raw": {
+  "cardboard": 403,
+  "glass": 501,
+  "metal": 410,
+  "paper": 594,
+  "plastic": 482,
+  "trash": 137
+ },
+ "removed": {
+  "exact_duplicate": [
+   [
+    "metal/metal91.jpg",
+    "glass/glass115.jpg"
+   ],
+   [
+    "plastic/plastic152.jpg",
+    "glass/glass176.jpg"
+   ],
+   [
+    "plastic/plastic332.jpg",
+    "glass/glass389.jpg"
+   ]
+  ]
+ },
+ "kept": {
+  "cardboard": 403,
+  "glass": 501,
+  "metal": 409,
+  "paper": 594,
+  "plastic": 480,
+  "trash": 137
+ },
+ "split_counts": {
+  "train": {
+   "cardboard": 282,
+   "glass": 351,
+   "metal": 286,
+   "paper": 416,
+   "plastic": 336,
+   "trash": 96
+  },
+  "val": {
+   "cardboard": 60,
+   "glass": 75,
+   "metal": 61,
+   "paper": 89,
+   "plastic": 72,
+   "trash": 21
+  },
+  "test": {
+   "cardboard": 61,
+   "glass": 75,
+   "metal": 62,
+   "paper": 89,
+   "plastic": 72,
+   "trash": 20
+  }
+ },
+ "removed_counts": {
+  "exact_duplicate": 3
+ }
+}

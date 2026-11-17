@@ -1,0 +1,231 @@
+{
+ "model": "resnet50",
+ "n_errors": 28,
+ "mean_centre_mass": 0.37496247980743647,
+ "errors": [
+  {
+   "path": "plastic/plastic459.jpg",
+   "true": 4,
+   "pred": 5,
+   "confidence": 0.8958982229232788,
+   "true_prob": 0.04479438439011574,
+   "centre_mass": 0.2599828541278839
+  },
+  {
+   "path": "cardboard/cardboard254.jpg",
+   "true": 0,
+   "pred": 3,
+   "confidence": 0.8512845039367676,
+   "true_prob": 0.044056881219148636,
+   "centre_mass": 0.505251944065094
+  },
+  {
+   "path": "glass/glass350.jpg",
+   "true": 1,
+   "pred": 4,
+   "confidence": 0.7851418852806091,
+   "true_prob": 0.13426849246025085,
+   "centre_mass": 0.22546930611133575
+  },
+  {
+   "path": "plastic/plastic450.jpg",
+   "true": 4,
+   "pred": 5,
+   "confidence": 0.7463245391845703,
+   "true_prob": 0.10193183273077011,
+   "centre_mass": 0.323221355676651
+  },
+  {
+   "path": "glass/glass170.jpg",
+   "true": 1,
+   "pred": 2,
+   "confidence": 0.7430906891822815,
+   "true_prob": 0.055268462747335434,
+   "centre_mass": 0.6123231649398804
+  },
+  {
+   "path": "paper/paper594.jpg",
+   "true": 3,
+   "pred": 5,
+   "confidence": 0.7390044927597046,
+   "true_prob": 0.19699707627296448,
+   "centre_mass": 0.1417480856180191
+  },
+  {
+   "path": "glass/glass252.jpg",
+   "true": 1,
+   "pred": 2,
+   "confidence": 0.7069529891014099,
+   "true_prob": 0.185079887509346,
+   "centre_mass": 0.48401114344596863
+  },
+  {
+   "path": "cardboard/cardboard331.jpg",
+   "true": 0,
+   "pred": 3,
+   "confidence": 0.7052966356277466,
+   "true_prob": 0.1269109845161438,
+   "centre_mass": 0.35732194781303406
+  },
+  {
+   "path": "glass/glass385.jpg",
+   "true": 1,
+   "pred": 2,
+   "confidence": 0.6647495627403259,
+   "true_prob": 0.058412108570337296,
+   "centre_mass": 0.31748244166374207
+  },
+  {
+   "path": "glass/glass102.jpg",
+   "true": 1,
+   "pred": 4,
+   "confidence": 0.6566936373710632,
+   "true_prob": 0.15298698842525482,
+   "centre_mass": 0.2994668483734131
+  },
+  {
+   "path": "trash/trash66.jpg",
+   "true": 5,
+   "pred": 2,
+   "confidence": 0.6559910178184509,
+   "true_prob": 0.18021301925182343,
+   "centre_mass": 0.41742298007011414
+  },
+  {
+   "path": "paper/paper3.jpg",
+   "true": 3,
+   "pred": 2,
+   "confidence": 0.5827950835227966,
+   "true_prob": 0.05610533431172371,
+   "centre_mass": 0.1577903926372528
+  },
+  {
+   "path": "glass/glass468.jpg",
+   "true": 1,
+   "pred": 4,
+   "confidence": 0.5660256147384644,
+   "true_prob": 0.24831275641918182,
+   "centre_mass": 0.44098228216171265
+  },
+  {
+   "path": "glass/glass22.jpg",
+   "true": 1,
+   "pred": 2,
+   "confidence": 0.5550978779792786,
+   "true_prob": 0.2765484154224396,
+   "centre_mass": 0.7603157162666321
+  },
+  {
+   "path": "cardboard/cardboard294.jpg",
+   "true": 0,
+   "pred": 3,
+   "confidence": 0.5458014607429504,
+   "true_prob": 0.22549547255039215,
+   "centre_mass": 0.08175087720155716
+  },
+  {
+   "path": "plastic/plastic467.jpg",
+   "true": 4,
+   "pred": 5,
+   "confidence": 0.5391669273376465,
+   "true_prob": 0.024585779756307602,
+   "centre_mass": 0.3151441514492035
+  },
+  {
+   "path": "glass/glass55.jpg",
+   "true": 1,
+   "pred": 4,
+   "confidence": 0.5153327584266663,
+   "true_prob": 0.3746512532234192,
+   "centre_mass": 0.5901592373847961
+  },
+  {
+   "path": "plastic/plastic466.jpg",
+   "true": 4,
+   "pred": 3,
+   "confidence": 0.46880361437797546,
+   "true_prob": 0.10359739512205124,
+   "centre_mass": 0.5642471313476562
+  },
+  {
+   "path": "cardboard/cardboard163.jpg",
+   "true": 0,
+   "pred": 4,
+   "confidence": 0.4593118131160736,
+   "true_prob": 0.2296045422554016,
+   "centre_mass": 0.4529677629470825
+  },
+  {
+   "path": "plastic/plastic40.jpg",
+   "true": 4,
+   "pred": 1,
+   "confidence": 0.4511631429195404,
+   "true_prob": 0.40253525972366333,
+   "centre_mass": 0.05519784241914749
+  },
+  {
+   "path": "cardboard/cardboard353.jpg",
+   "true": 0,
+   "pred": 3,
+   "confidence": 0.44795817136764526,
+   "true_prob": 0.4083343744277954,
+   "centre_mass": 0.4903353154659271
+  },
+  {
+   "path": "glass/glass115.jpg",
+   "true": 1,
+   "pred": 2,
+   "confidence": 0.41250160336494446,
+   "true_prob": 0.39610764384269714,
+   "centre_mass": 0.9158539772033691
+  },
+  {
+   "path": "metal/metal365.jpg",
+   "true": 2,
+   "pred": 4,
+   "confidence": 0.40596911311149597,
+   "true_prob": 0.3635118901729584,
+   "centre_mass": 0.565527081489563
+  },
+  {
+   "path": "plastic/plastic33.jpg",
+   "true": 4,
+   "pred": 2,
+   "confidence": 0.40592125058174133,
+   "true_prob": 0.3786827325820923,
+   "centre_mass": 0.3991759121417999
+  },
+  {
+   "path": "glass/glass167.jpg",
+   "true": 1,
+   "pred": 2,
+   "confidence": 0.3857652246952057,
+   "true_prob": 0.32102492451667786,
+   "centre_mass": 0.46074217557907104
+  },
+  {
+   "path": "cardboard/cardboard190.jpg",
+   "true": 0,
+   "pred": 3,
+   "confidence": 0.33906543254852295,
+   "true_prob": 0.21812361478805542,
+   "centre_mass": 0.015060897916555405
+  },
+  {
+   "path": "cardboard/cardboard370.jpg",
+   "true": 0,
+   "pred": 3,
+   "confidence": 0.2963842451572418,
+   "true_prob": 0.24230700731277466,
+   "centre_mass": 0.15043842792510986
+  },
+  {
+   "path": "paper/paper463.jpg",
+   "true": 3,
+   "pred": 5,
+   "confidence": 0.27858105301856995,
+   "true_prob": 0.21501187980175018,
+   "centre_mass": 0.13955818116664886
+  }
+ ]
+}

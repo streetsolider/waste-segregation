@@ -1,0 +1,253 @@
+{
+ "params": 23520326,
+ "n_test": 379,
+ "accuracy": 0.9261213720316622,
+ "macro_f1": 0.9184527749976409,
+ "per_class": {
+  "cardboard": {
+   "precision": 1.0,
+   "recall": 0.8852459016393442,
+   "f1": 0.9391304347826087
+  },
+  "glass": {
+   "precision": 0.9848484848484849,
+   "recall": 0.8666666666666667,
+   "f1": 0.9219858156028369
+  },
+  "metal": {
+   "precision": 0.8714285714285714,
+   "recall": 0.9838709677419355,
+   "f1": 0.9242424242424242
+  },
+  "paper": {
+   "precision": 0.9247311827956989,
+   "recall": 0.9662921348314607,
+   "f1": 0.945054945054945
+  },
+  "plastic": {
+   "precision": 0.9166666666666666,
+   "recall": 0.9166666666666666,
+   "f1": 0.9166666666666666
+  },
+  "trash": {
+   "precision": 0.7916666666666666,
+   "recall": 0.95,
+   "f1": 0.8636363636363636
+  }
+ },
+ "confusion": [
+  [
+   54,
+   0,
+   0,
+   6,
+   1,
+   0
+  ],
+  [
+   0,
+   65,
+   6,
+   0,
+   4,
+   0
+  ],
+  [
+   0,
+   0,
+   61,
+   0,
+   1,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   86,
+   0,
+   2
+  ],
+  [
+   0,
+   1,
+   1,
+   1,
+   66,
+   3
+  ],
+  [
+   0,
+   0,
+   1,
+   0,
+   0,
+   19
+  ]
+ ],
+ "wrong": [
+  {
+   "path": "cardboard/cardboard353.jpg",
+   "true": 0,
+   "pred": 3
+  },
+  {
+   "path": "cardboard/cardboard254.jpg",
+   "true": 0,
+   "pred": 3
+  },
+  {
+   "path": "cardboard/cardboard370.jpg",
+   "true": 0,
+   "pred": 3
+  },
+  {
+   "path": "cardboard/cardboard190.jpg",
+   "true": 0,
+   "pred": 3
+  },
+  {
+   "path": "cardboard/cardboard331.jpg",
+   "true": 0,
+   "pred": 3
+  },
+  {
+   "path": "cardboard/cardboard294.jpg",
+   "true": 0,
+   "pred": 3
+  },
+  {
+   "path": "cardboard/cardboard163.jpg",
+   "true": 0,
+   "pred": 4
+  },
+  {
+   "path": "glass/glass468.jpg",
+   "true": 1,
+   "pred": 4
+  },
+  {
+   "path": "glass/glass170.jpg",
+   "true": 1,
+   "pred": 2
+  },
+  {
+   "path": "glass/glass385.jpg",
+   "true": 1,
+   "pred": 2
+  },
+  {
+   "path": "glass/glass167.jpg",
+   "true": 1,
+   "pred": 2
+  },
+  {
+   "path": "glass/glass115.jpg",
+   "true": 1,
+   "pred": 2
+  },
+  {
+   "path": "glass/glass350.jpg",
+   "true": 1,
+   "pred": 4
+  },
+  {
+   "path": "glass/glass55.jpg",
+   "true": 1,
+   "pred": 4
+  },
+  {
+   "path": "glass/glass102.jpg",
+   "true": 1,
+   "pred": 4
+  },
+  {
+   "path": "glass/glass22.jpg",
+   "true": 1,
+   "pred": 2
+  },
+  {
+   "path": "glass/glass252.jpg",
+   "true": 1,
+   "pred": 2
+  },
+  {
+   "path": "metal/metal365.jpg",
+   "true": 2,
+   "pred": 4
+  },
+  {
+   "path": "paper/paper463.jpg",
+   "true": 3,
+   "pred": 5
+  },
+  {
+   "path": "paper/paper3.jpg",
+   "true": 3,
+   "pred": 2
+  },
+  {
+   "path": "paper/paper594.jpg",
+   "true": 3,
+   "pred": 5
+  },
+  {
+   "path": "plastic/plastic33.jpg",
+   "true": 4,
+   "pred": 2
+  },
+  {
+   "path": "plastic/plastic467.jpg",
+   "true": 4,
+   "pred": 5
+  },
+  {
+   "path": "plastic/plastic459.jpg",
+   "true": 4,
+   "pred": 5
+  },
+  {
+   "path": "plastic/plastic450.jpg",
+   "true": 4,
+   "pred": 5
+  },
+  {
+   "path": "plastic/plastic466.jpg",
+   "true": 4,
+   "pred": 3
+  },
+  {
+   "path": "plastic/plastic40.jpg",
+   "true": 4,
+   "pred": 1
+  },
+  {
+   "path": "trash/trash66.jpg",
+   "true": 5,
+   "pred": 2
+  }
+ ],
+ "robust": {
+  "occlusion": {
+   "accuracy": 0.9102902374670184,
+   "macro_f1": 0.9023707589657525
+  },
+  "clutter": {
+   "accuracy": 0.8258575197889182,
+   "macro_f1": 0.8209043130567801
+  },
+  "contamination": {
+   "accuracy": 0.741424802110818,
+   "macro_f1": 0.7146565396617155
+  },
+  "low_light": {
+   "accuracy": 0.6411609498680739,
+   "macro_f1": 0.6139151382772606
+  },
+  "blur": {
+   "accuracy": 0.7862796833773087,
+   "macro_f1": 0.7660338283896816
+  }
+ },
+ "robust_mean_accuracy": 0.7810026385224275
+}

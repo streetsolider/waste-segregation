@@ -1,0 +1,21 @@
+﻿# data and model weights are large and reproducible
+data/raw/
+data/*.zip
+*.pt
+*.onnx
+__pycache__/
+*.pyc
+figures/iterations/
+*.aux
+*.log
+!runs/train.log
+
+# local notes and paper build files
+PROGRESS.md
+paper/
+tools/extend_spec.py
+tools/polish_docx.py
+tools/rebuild.ps1
+figures/fig3_*
+figures/fig4_*
+figures/fig5_*
