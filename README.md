@@ -1,42 +1,100 @@
-# AI-Optimised Waste Segregation - code
+# AI-Optimised Waste Segregation
 
-Code for the UWE Advanced Artificial Intelligence group paper. Each module is one stage of
-the pipeline in Figure 3 of the paper.
+Image classification of household waste into six classes (cardboard, glass, metal, paper, plastic, trash)
+with three transfer-learning CNNs: MobileNetV3-Small, EfficientNet-B0 and ResNet-50. The project tests how well
+the models hold up on degraded images and on other waste datasets, and how much they lose when they are
+compressed for edge devices (INT8 quantisation, pruning).
 
-| Step | Module | Command | Output |
+Code for a UWE Advanced Artificial Intelligence group project.
+
+## Results (accuracy %, mean of 3 seeds)
+
+Trained on TrashNet plus five other datasets:
+
+| Test set | MobileNetV3-S | EfficientNet-B0 | ResNet-50 |
 |---|---|---|---|
-| 1 Dataset cleaning, filtering, split | `wasteseg/data.py` | `python -m wasteseg.data` | `data/splits.json`, `data/cleaning_report.json` |
-| 2 Synthetic deployment conditions | `wasteseg/corrupt.py` | (used by step 5) | - |
-| 3 Model architecture | `wasteseg/models.py` | (used by step 4) | - |
-| 4 Two-stage transfer learning | `wasteseg/train.py` | `python -m wasteseg.train` | `runs/<model>/best.pt`, `history.json` |
-| 5 Accuracy and robustness | `wasteseg/evaluate.py` | `python -m wasteseg.evaluate` | `runs/<model>/eval.json` |
-| 6 Quantisation, pruning, latency | `wasteseg/optimise.py` | `python -m wasteseg.optimise` | `runs/<model>/*.onnx`, `optimise.json` |
-| 7 Grad-CAM on errors | `wasteseg/gradcam.py` | `python -m wasteseg.gradcam` | `figures/gradcam_errors.png` |
-| 8 Smart-bin inference on one photo | `wasteseg/predict.py` | `python -m wasteseg.predict photo.jpg` | class probabilities |
-| 9 Result figures | `wasteseg/make_figures.py` | `python -m wasteseg.make_figures` | `figures/fig6..fig9` |
+| TrashNet (clean) | 88.4 | 91.9 | 92.7 |
+| TrashNet (degraded) | 81.4 | 85.7 | 87.3 |
+| RealWaste | 89.5 | 93.3 | 93.3 |
+| Garbage V2 | 90.1 | 92.2 | 93.4 |
+| WaRP | 94.3 | 94.9 | 95.6 |
+| TACO | 64.5 | 70.7 | 73.2 |
+| TrashBox (never trained on) | 65.2 | 69.9 | 74.3 |
 
-All settings (seed, split, epochs, learning rates) are in `wasteseg/config.py`.
+Models trained on TrashNet alone reach only 22-58 % on the other datasets. All raw numbers are in `runs_v2/` and
+`runs_v3/`. Run `python tools/summarise_v3.py` to print every table.
 
-## Setup
-1. Python 3.11, `pip install torch torchvision onnx onnxruntime scikit-learn matplotlib pillow imagehash`.
-2. Download `dataset-resized.zip` from https://github.com/garythung/trashnet (folder `data/`) and unzip it
-   to `data/raw/` so that `data/raw/dataset-resized/<class>/*.jpg` exists.
-3. Run steps 1, 4, 5, 6, 7, 9 in order.
+## Requirements
 
-## Final experiments (the ones reported in the paper)
+- Python 3.10 or newer (tested on 3.11), Windows or Linux
+- An NVIDIA GPU with CUDA for training (`train_v2`, `train_v3` and `explain_v3` use CUDA directly).
+  Results were produced on an RTX 5070 Ti (16 GB). The demo and single-image prediction run on CPU.
+- About 17 GB of free RAM for `train_v3`, and about 15 GB of disk for the datasets
+
+```bash
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+If `pip` installs a CPU-only PyTorch, install the CUDA build for your system from
+https://pytorch.org/get-started/locally/ first, then run the line above again.
+
+## Data
+
+None of the image data is in the repository. Everything goes under `data/`, and all commands are run from the
+repository root.
+
+**TrashNet** (main dataset). Download `dataset-resized.zip` from https://github.com/garythung/trashnet (folder
+`data/`) and unzip it so that `data/raw/dataset-resized/<class>/*.jpg` exists.
+
+**External datasets** go into `data/external/`:
+
+| Folder | Source | How to get it |
+|---|---|---|
+| `realwaste_hf/` | Hugging Face `shahzaibvohra/realwaste` | `hf download shahzaibvohra/realwaste --repo-type dataset --local-dir data/external/realwaste_hf` |
+| `recycling_hf/` | Hugging Face `viola77data/recycling-dataset` | `hf download viola77data/recycling-dataset --repo-type dataset --local-dir data/external/recycling_hf` |
+| `kagglehub/` | Kaggle `sumn2u/garbage-classification-v2` | `KAGGLEHUB_CACHE=data/external/kagglehub python -c "import kagglehub; kagglehub.dataset_download('sumn2u/garbage-classification-v2')"` |
+| `warp/` | Kaggle `parohod/warp-waste-recycling-plant-dataset` | download and unzip so that `data/external/warp/Warp-C/` exists |
+| `taco/` | https://github.com/pedropro/TACO | clone it and run its `download.py`, then copy `data/annotations.json` and the `batch_*` folders into `data/external/taco/` |
+| `trashbox/` | https://github.com/nikhilvenkatkumsetty/TrashBox | clone it into `data/external/trashbox/` (needs `TrashBox_train_dataset_subfolders/`) |
+
+The Kaggle downloads need a Kaggle account and API token (see the kagglehub docs). On Windows PowerShell, set
+the cache with `$env:KAGGLEHUB_CACHE = "data/external/kagglehub"` before running the command.
+Any dataset that is missing is skipped.
+
+## Running the experiments
+
+Run these in order:
 
 | Step | Command | Output |
 |---|---|---|
-| Clean and split TrashNet | `python -m wasteseg.data` | `data/splits.json`, `data/cleaning_report.json` |
-| Collect, map and clean the other datasets | `python -m wasteseg.external` | `data/external_cache/`, `data/external_report.json` |
-| Learning-rate search and benchmark training (3 seeds) | `python -m wasteseg.train_v2 tune` then `final` | `runs_v2/` |
-| Transfer, multi-source, leave-one-out, unseen test | `python -m wasteseg.train_v3 transfer multi lodo unseen` | `runs_v3/` |
-| Quantisation, pruning, latency | `python -m wasteseg.optimise_v3` | `runs_v3/optimise.json` |
-| Grad-CAM | `python -m wasteseg.explain_v3` | `runs_v3/gradcam.json`, `figures/gradcam_v3.png` |
-| Result figures | `python -m wasteseg.make_figures_v3` | `figures/fig7_robustness.png`, `figures/fig8_generalisation.png` |
-| Print every results table | `python tools\summarise_v3.py` | console |
+| 1. Clean and split TrashNet | `python -m wasteseg.data` | `data/splits.json`, `data/cleaning_report.json` |
+| 2. Map and clean the other datasets, remove TrashNet copies | `python -m wasteseg.external` | `data/external_cache/`, `data/external_report.json` |
+| 3. Learning-rate search, then benchmark training (3 seeds) | `python -m wasteseg.train_v2 tune`, then `python -m wasteseg.train_v2 final` | `runs_v2/` |
+| 4. Transfer, multi-source, leave-one-out, unseen test | `python -m wasteseg.train_v3 transfer multi lodo unseen` | `runs_v3/` |
+| 5. Quantisation, pruning, latency | `python -m wasteseg.optimise_v3` | `runs_v3/optimise.json` |
+| 6. Grad-CAM | `python -m wasteseg.explain_v3` | `runs_v3/gradcam.json`, `figures/gradcam_v3.png` |
+| 7. Figures | `python -m wasteseg.make_figures` and `python -m wasteseg.make_figures_v3` | `figures/` |
+| 8. Print the result tables | `python tools/summarise_v3.py` | console |
 
-The external datasets are downloaded into `data/external/` (see `wasteseg/external.py` for the folder names).
-`train_v3` needs about 17 GB of RAM, so run it on its own. `train.py`, `evaluate.py`, `optimise.py`, `gradcam.py`
-and `make_figures.py` are the first-round versions and are no longer used by the paper, except that
-`make_figures.py` draws Figure 6.
+Steps 3 and 4 take several hours on one GPU. Run `train_v3` on its own because of its memory use. The result
+JSON files are already in the repository, so step 8 works without retraining.
+
+All settings (seed, split ratios, image size, degradation types) are in `wasteseg/config.py`.
+
+`train.py`, `evaluate.py`, `optimise.py` and `gradcam.py` are the first-round pipeline (single seed, 20 epochs,
+results in `runs/`). They still run, but the `_v2`/`_v3` scripts replace them.
+
+## Demo
+
+A small local web app that compares the TrashNet-only model with the multi-dataset model on an uploaded photo.
+It needs the weights from steps 3 and 4.
+
+```bash
+python -m demo.export     # writes demo/models/*.onnx
+python -m demo.app        # then open http://127.0.0.1:8765
+```
+
+For a single photo from the command line, run `python -m wasteseg.train` and `python -m wasteseg.optimise` once
+(they create `runs/<model>/int8.onnx`), then `python -m wasteseg.predict photo.jpg [model]`.

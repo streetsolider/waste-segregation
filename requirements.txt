@@ -1,0 +1,13 @@
+# Install PyTorch first if you need a specific CUDA build: https://pytorch.org/get-started/locally/
+torch>=2.4
+torchvision>=0.19
+numpy>=1.26
+pillow>=10.0
+ImageHash>=4.3
+scikit-learn>=1.4
+matplotlib>=3.8
+onnx>=1.16
+onnxruntime>=1.18
+# dataset downloads
+huggingface_hub>=0.34   # provides the `hf` command
+kagglehub>=0.2
